@@ -1,6 +1,6 @@
 package com.stemlink.app;
 
-public class CreditCardPayment extends CardPayment{
+public class CreditCardPayment extends CardPayment implements Discount{
     private Double creditLimit;
 
     public CreditCardPayment(Double amount, String currency, String status) {
@@ -18,5 +18,25 @@ public class CreditCardPayment extends CardPayment{
 
     public void setCreditLimit(Double creditLimit) {
         this.creditLimit = creditLimit;
+    }
+
+    @Override
+    public double applyDiscount(double percent) {
+        double discount = getAmount() * percent/100;
+        setAmount(getAmount()-discount);
+        return discount;
+    }
+
+    @Override
+    public double finalAmount() {
+        return getAmount();
+    }
+
+    @Override
+    public boolean validate() {
+        if(creditLimit<getAmount()){
+            return false;
+        }
+        return super.validate();
     }
 }

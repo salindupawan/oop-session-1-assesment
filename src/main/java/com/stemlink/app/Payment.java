@@ -1,6 +1,8 @@
 package com.stemlink.app;
 
-public class Payment {
+import java.util.UUID;
+
+public abstract class Payment implements Payable {
     public static final String LKR = "LKR";
     public static final String USD = "USD";
     public static final String PENDING = "PENDING";
@@ -10,6 +12,7 @@ public class Payment {
     private Double amount;
     private String currency;
     private String status;
+    private String referenceId;
 
     public Payment(Double amount, String currency, String status) {
         this.amount = amount;
@@ -17,9 +20,7 @@ public class Payment {
         this.status = status;
     }
 
-    public void processPayment() {
-        System.out.println("Processing generic payment...");
-    }
+    public abstract void processPayment();
 
     public void generateReceipt(){
         System.out.println("Receipt for amount "+this.amount+", currency "+this.currency);
@@ -52,4 +53,14 @@ public class Payment {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String getReference() {
+        if(referenceId == null){
+            referenceId = UUID.randomUUID().toString();
+        }
+        return referenceId;
+    }
+
+
 }

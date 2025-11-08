@@ -26,4 +26,21 @@ public class BankTransfer extends Payment{
     public void setReferenceCode(String referenceCode) {
         this.referenceCode = referenceCode;
     }
+
+    @Override
+    public boolean validate() {
+        if(bankName == null || accountNumber == null || referenceCode == null) {
+            return false;
+        }
+        if (bankName.isEmpty() || accountNumber.isEmpty() || referenceCode.isEmpty()) {
+            return false;
+        }
+        if(getAmount() == null || getCurrency() == null || getStatus() == null){
+            return false;
+        }
+        if(getAmount()<=0 || getCurrency().isEmpty() || getStatus().isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

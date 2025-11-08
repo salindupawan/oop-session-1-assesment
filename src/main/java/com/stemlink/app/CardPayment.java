@@ -29,4 +29,21 @@ public class CardPayment extends Payment{
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
+
+    @Override
+    public boolean validate() {
+        if(cardNumber == null || cardHolderName == null || expiryDate == null){
+            return false;
+        }
+        if(cardNumber.isEmpty() || cardHolderName.isEmpty() || expiryDate.isEmpty()){
+            return false;
+        }
+        if(getAmount() == null || getCurrency() == null || getStatus() == null){
+            return false;
+        }
+        if(getAmount()<=0 || getCurrency().isEmpty() || getStatus().isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

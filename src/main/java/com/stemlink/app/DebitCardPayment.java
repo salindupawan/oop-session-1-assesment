@@ -1,6 +1,6 @@
 package com.stemlink.app;
 
-public class DebitCardPayment extends CardPayment{
+public class DebitCardPayment extends CardPayment implements Discount{
     private Double availableBalance;
 
     public DebitCardPayment(Double amount, String currency, String status) {
@@ -18,5 +18,25 @@ public class DebitCardPayment extends CardPayment{
 
     public void setAvailableBalance(Double availableBalance) {
         this.availableBalance = availableBalance;
+    }
+
+    @Override
+    public double applyDiscount(double percent) {
+        double discount = getAmount() * percent/100;
+        setAmount(getAmount()-discount);
+        return discount;
+    }
+
+    @Override
+    public double finalAmount() {
+        return getAmount();
+    }
+
+    @Override
+    public boolean validate() {
+        if(availableBalance<getAmount()){
+            return false;
+        }
+        return super.validate();
     }
 }

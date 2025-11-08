@@ -1,4 +1,4 @@
-# 🧾 STEMLink - OOP Session 1 assesment
+# 🧾 STEMLink - OOP Session 2 assesment
 
 This project demonstrates a simple **object-oriented payment system** for an e-commerce platform, designed using **inheritance**, **method overriding**, and **polymorphism** in Java.
 

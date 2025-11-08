@@ -15,4 +15,18 @@ public class CashOnDelivery extends Payment{
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
     }
+
+    @Override
+    public boolean validate() {
+        if(deliveryAddress == null || deliveryAddress.isEmpty()){
+            return false;
+        }
+        if(getAmount() == null || getCurrency() == null || getStatus() == null){
+            return false;
+        }
+        if(getAmount()<=0 || getCurrency().isEmpty() || getStatus().isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }
